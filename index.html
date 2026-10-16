@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Link</title>
+    <style>html, body { background: #0B0B0D; }</style>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/styles.css">
+    <link rel="stylesheet" href="/src/dependency-ui.css">
+</head>
+<body>
+    <header class="app-header">
+        <div class="logo">
+            <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+            Link
+        </div>
+        <nav class="floating-nav">
+            <a href="#" class="nav-item active" data-view="view-home">
+                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                Home
+            </a>
+            <a href="#" class="nav-item" data-view="view-downloads">
+                <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Downloads
+                <span class="nav-badge" id="dl-badge">0</span>
+            </a>
+            <a href="#" class="nav-item" id="nav-settings">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </a>
+        </nav>
+    </header>
+
+    <main class="app-main" id="app-main">
+        <div class="view active" id="view-home">
+            <div class="home-spacer" id="home-spacer"></div>
+            <div class="hero-text-container" id="hero-text">
+                <h1 class="hero-title">Link. Quietly powerful.<br>Open by design.</h1>
+                <p class="hero-subtitle">Download video or audio from 1,000+ sites.</p>
+            </div>
+            <div class="search-wrapper">
+                <div class="search-input-box">
+                    <svg class="link-icon" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                    <input type="url" id="url-input" placeholder="Paste a video URL..." autocomplete="off" spellcheck="false">
+                    <button class="clear-btn" id="clear-btn" aria-label="Clear input"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                    <button class="btn-primary" id="download-main-btn" disabled>Download</button>
+                </div>
+                <div class="url-feedback" id="url-feedback" role="alert" aria-live="polite"></div>
+            </div>
+
+            <div class="results-container" id="results-container">
+                <div class="video-hero">
+                    <div class="hero-thumbnail">
+                        <img id="meta-thumb" src="" alt="Thumbnail" />
+                        <div class="duration-badge" id="meta-duration">00:00</div>
+                    </div>
+                    <div class="hero-info">
+                        <h1 id="meta-title">Loading…</h1>
+                        <div class="meta-tags">
+                            <div class="meta-tag"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> <span id="meta-uploader"></span></div>
+                            <div class="meta-tag" id="meta-date-container"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> <span id="meta-date"></span></div>
+                        </div>
+
+                        <div class="trim-module">
+                            <div class="trim-header"><svg viewBox="0 0 24 24"><circle cx="6" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><line x1="20" y1="4" x2="8.12" y2="15.88"></line><line x1="14.47" y1="14.48" x2="20" y2="20"></line><line x1="8.12" y1="8.12" x2="12" y2="12"></line></svg> Trim Length</div>
+                            <div class="dual-slider-container">
+                                <div class="slider-track"></div>
+                                <div class="slider-highlight" id="trim-highlight"></div>
+                                <input type="range" min="0" max="100" value="0" id="trim-slider-start">
+                                <input type="range" min="0" max="100" value="100" id="trim-slider-end">
+                            </div>
+                            <div class="trim-controls" id="trim-controls">
+                                <div class="time-input-group"><label>Start</label><input type="text" value="00:00:00" id="trim-input-start"></div>
+                                <span class="trim-separator">—</span>
+                                <div class="time-input-group"><label>End</label><input type="text" value="00:00:00" id="trim-input-end"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="formats-section">
+                    <div class="tabs-container">
+                        <button class="tab-btn active" data-target="tab-video">Video</button>
+                        <button class="tab-btn" data-target="tab-audio">Audio</button>
+                    </div>
+                    <div class="tab-content active" id="tab-video">
+                        <div class="format-grid" id="video-formats"></div>
+                    </div>
+                    <div class="tab-content" id="tab-audio">
+                        <div class="format-grid" id="audio-formats"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="view" id="view-downloads">
+            <div class="downloads-wrapper">
+                <div class="downloads-header">
+                    <h2 class="downloads-title">Downloads</h2>
+                    <button class="btn-outline" id="clear-completed-btn">Clear Completed</button>
+                </div>
+                <div class="downloads-list" id="downloads-list"></div>
+            </div>
+        </div>
+    </main>
+
+    <div class="drawer-overlay" id="drawer-overlay"></div>
+
+    
+    <div class="link-modal" id="dep-modal">
+        <h3 class="link-modal-title" id="modal-dep-title">Dependency required</h3>
+        <p class="link-modal-desc" id="modal-dep-desc"></p>
+        <div class="link-modal-source" id="modal-dep-source"></div>
+
+        <div class="link-modal-progress" id="modal-dep-progress">
+            <div class="link-modal-progress-labels">
+                <span id="modal-dep-status">Starting…</span>
+                <span id="modal-dep-percent">0%</span>
+            </div>
+            <div class="link-modal-progress-track">
+                <div class="link-modal-progress-bar" id="modal-dep-bar"></div>
+            </div>
+        </div>
+
+        <div class="link-modal-actions" id="modal-dep-actions">
+            <button class="btn-outline" id="modal-cancel-btn">Cancel</button>
+            <button class="btn-primary" id="modal-action-btn">Install</button>
+        </div>
+    </div>
+
+    
+    <aside class="settings-drawer" id="settings-drawer">
+        <div class="drawer-header">
+            <h3>Settings</h3>
+            <button class="btn-icon" id="close-settings-btn" style="border: none;"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+        </div>
+        <div class="drawer-content">
+            <div class="setting-group">
+                <label class="setting-label">Download Path</label>
+                <div class="setting-path-row">
+                    <div class="setting-path-value" id="setting-path" aria-label="Download path"></div>
+                    <button class="btn-outline" id="change-path-btn">Change</button>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <label class="setting-label">Dependencies</label>
+                
+                
+                <div class="dep-card" id="card-ytdlp">
+                    <div class="dep-card-header">
+                        <span class="dep-name">yt-dlp</span>
+                        <span class="dep-badge" id="badge-ytdlp">Checking…</span>
+                    </div>
+                    <div class="dep-card-body">
+                        <div class="dep-version-line">
+                            <span>Installed:</span>
+                            <span id="ytdlp-installed-ver">—</span>
+                        </div>
+                        <div class="dep-version-line">
+                            <span>Latest:</span>
+                            <span id="ytdlp-latest-ver">—</span>
+                        </div>
+                        <div class="dep-install-path">
+                            <span>Location:</span>
+                            <code id="ytdlp-install-path">—</code>
+                        </div>
+                    </div>
+                    <div class="dep-card-actions" id="actions-ytdlp"></div>
+                </div>
+
+                
+                <div class="dep-card" id="card-ffmpeg">
+                    <div class="dep-card-header">
+                        <span class="dep-name">FFmpeg</span>
+                        <span class="dep-badge" id="badge-ffmpeg">Checking…</span>
+                    </div>
+                    <div class="dep-card-body">
+                        <div class="dep-version-line">
+                            <span>Installed:</span>
+                            <span id="ffmpeg-installed-ver">—</span>
+                        </div>
+                        <div class="dep-version-line">
+                            <span>Latest:</span>
+                            <span id="ffmpeg-latest-ver">—</span>
+                        </div>
+                        <div class="dep-install-path">
+                            <span>Location:</span>
+                            <code id="ffmpeg-install-path">—</code>
+                        </div>
+                    </div>
+                    <div class="dep-card-actions" id="actions-ffmpeg"></div>
+                </div>
+
+                <div class="dep-card" id="card-deno">
+                    <div class="dep-card-header">
+                        <span class="dep-name">YouTube JavaScript runtime</span>
+                        <span class="dep-badge" id="badge-deno">Checking…</span>
+                    </div>
+                    <div class="dep-card-body">
+                        <div class="dep-version-line">
+                            <span>Installed:</span>
+                            <span id="deno-installed-ver">—</span>
+                        </div>
+                        <div class="dep-version-line">
+                            <span>Latest:</span>
+                            <span id="deno-latest-ver">—</span>
+                        </div>
+                        <div class="dep-install-path">
+                            <span>Location:</span>
+                            <code id="deno-install-path">—</code>
+                        </div>
+                    </div>
+                    <div class="dep-card-actions" id="actions-deno"></div>
+                </div>
+
+                <button class="btn-compact btn-compact-outline btn-global-check" id="check-all-updates-btn">
+                    Check for updates
+                </button>
+            </div>
+        </div>
+    </aside>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
